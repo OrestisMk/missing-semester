@@ -1,0 +1,26 @@
+name: Shellcheck Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  shellcheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install ShellCheck
+        run: sudo apt-get install -y shellcheck
+
+      - name: Run ShellCheck
+        run: |
+          # Find all shell files and run shellcheck on each
+          for file in $(find . -type f -name "*.sh"); do
+            echo "Running shellcheck on $file"
+            shellcheck "$file"
+          done
