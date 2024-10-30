@@ -17,9 +17,13 @@ jobs:
       - name: Install ShellCheck
         run: sudo apt-get install -y shellcheck
 
+      - name: List shell files
+        run: |
+          echo "Searching for shell files:"
+          find . -type f -name "*.sh"
+
       - name: Run ShellCheck
         run: |
-          # Find all shell files and run shellcheck on each
           for file in $(find . -type f -name "*.sh"); do
             echo "Running shellcheck on $file"
             shellcheck "$file"
